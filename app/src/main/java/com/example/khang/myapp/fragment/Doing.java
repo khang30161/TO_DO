@@ -8,11 +8,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -24,9 +26,7 @@ import com.example.khang.myapp.RecycleviewAdapter;
 import com.example.khang.myapp.db.TaskContract;
 import com.example.khang.myapp.db.TaskDbOpen;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import static com.example.khang.myapp.db.TaskContract.TaskEntry.COL_TASK_CONTENT;
@@ -36,16 +36,11 @@ import static com.example.khang.myapp.db.TaskContract.TaskEntry.TABLE;
 
 
 public class Doing extends Fragment {
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "Doing";
     private TaskDbOpen mHelper;
     private RecyclerView recyclerView;
     private RecycleviewAdapter recycleviewAdapter;
     private List<Manager> managers = new ArrayList<>();
-    private RecycleviewAdapter.Action action;
-    private TextView day;
-    Calendar calander;
-    SimpleDateFormat simpledateformat;
-    String Date;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,10 +54,17 @@ public class Doing extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_doing, container, false);
-        recyclerView=view.findViewById(R.id.lv_todo);
+        View view = inflater.inflate(R.layout.fragment_doing, container, false);
+        recyclerView = view.findViewById(R.id.lv_todo);
+        mHelper = new TaskDbOpen(getActivity());
+
+        updateUI();
+        //deleteTask(view);
         return view;
     }
+
+
+
     private void updateUI() {
         SQLiteDatabase db = mHelper.getReadableDatabase();
         Cursor cursor = db.query(TABLE,
@@ -77,7 +79,7 @@ public class Doing extends Fragment {
             managers.add(new Manager(idx, content, time));
         }
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        recycleviewAdapter = new RecycleviewAdapter(this, managers, new RecycleviewAdapter.Action() {
+        recycleviewAdapter = new RecycleviewAdapter(getActivity(), managers, new RecycleviewAdapter.Action() {
             @Override
             public void onClickItem(Manager manager, int position) {
                 Intent intent = new Intent(getActivity(), DetailItem.class);
@@ -130,5 +132,5 @@ public class Doing extends Fragment {
     }
 
 
-
 }
+
