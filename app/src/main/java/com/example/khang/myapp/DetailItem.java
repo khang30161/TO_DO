@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.example.khang.myapp.Object.Manager;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 

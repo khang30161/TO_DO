@@ -3,20 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.CompleteActivity">
+    tools:context=".Complete">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:textSize="20dp"
         android:id="@+id/line1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Completed" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="25dp"
+        android:text="Công việc đã hoàn thành" />
 
     <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="25dp"
         android:layout_below="@+id/line1"
-        android:id="@+id/rv_123"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
     </android.support.v7.widget.RecyclerView>
 

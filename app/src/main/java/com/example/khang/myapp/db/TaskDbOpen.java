@@ -20,9 +20,10 @@ public class TaskDbOpen extends SQLiteOpenHelper {
                 TaskContract.TaskEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 TaskContract.TaskEntry.COL_TASK_TITLE + " TEXT NOT NULL,"+
                 TaskContract.TaskEntry.COL_TASK_CONTENT + " TEXT NOT NULL,"+
-                TaskContract.TaskEntry.COL_TASK_TIME + " TEXT NOT NULL);";
-
-
+                TaskContract.TaskEntry.COL_TASK_TIME + " TEXT NOT NULL,"+
+                TaskContract.TaskEntry.CON_TASK_FINISH + " TEXT NOT NULL,"+
+                TaskContract.TaskEntry.COL_TASK_NAME + " TEXT NOT NULL,"+
+                TaskContract.TaskEntry.COL_TASK_EMAIL + " TEXT NOT NULL);";
         db.execSQL(createTable);
 
     }

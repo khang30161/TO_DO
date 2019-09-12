@@ -1,4 +1,4 @@
-package com.example.khang.myapp;
+package com.example.khang.myapp.Object;
 
 import java.io.Serializable;
 
@@ -6,6 +6,22 @@ public class Manager implements Serializable {
     private String text;
     private String content;
     private String time;
+    private String finish;
+
+    public String getFinish() {
+        return finish;
+    }
+
+    public void setFinish(String finish) {
+        this.finish = finish;
+    }
+
+    public Manager(String text, String content, String time, String finish) {
+        this.text = text;
+        this.content = content;
+        this.time = time;
+        this.finish=finish;
+    }
 
     public String getTime() {
         return time;
@@ -22,13 +38,6 @@ public class Manager implements Serializable {
     public void setContent(String content) {
         this.content = content;
     }
-
-    public Manager( String text, String content, String time) {
-        this.text = text;
-        this.content=content;
-        this.time=time;
-    }
-
 
     public String getText() {
         return text;
