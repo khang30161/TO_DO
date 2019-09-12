@@ -162,7 +162,7 @@ public class MainActivityTwo extends AppCompatActivity
         if (id == R.id.nav_home) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-            Intent intent=new Intent(MainActivityTwo.this, MainActivity.class);
+            Intent intent=new Intent(MainActivityTwo.this, Complete.class);
             startActivity(intent);
 
         }

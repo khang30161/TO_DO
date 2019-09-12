@@ -44,7 +44,7 @@ public class RecycleviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
         ViewHolder holder = (ViewHolder) viewHolder;
         holder.textView.setText(managers.get(i).getText());
-         holder.finish.setText(managers.get(i).getFinish());
+        holder.finish.setText(managers.get(i).getFinish());
         holder.content.setText(managers.get(i).getContent());
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +87,6 @@ public class RecycleviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         void onDelete(Manager view, int position);
     }
 
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView textView;
         private RelativeLayout relativeLayout;
@@ -100,10 +99,8 @@ public class RecycleviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             textView = itemView.findViewById(R.id.tv_display);
             relativeLayout = itemView.findViewById(R.id.line1);
             done = itemView.findViewById(R.id.btn_done);
-            content=itemView.findViewById(R.id.tv_content);
-            finish=itemView.findViewById(R.id.finsh);
-
+            content = itemView.findViewById(R.id.tv_content);
+            finish = itemView.findViewById(R.id.finsh);
         }
-
     }
 }
