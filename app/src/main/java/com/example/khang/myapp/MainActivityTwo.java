@@ -46,7 +46,9 @@ import static com.example.khang.myapp.db.TaskContract.TaskEntry.COL_TASK_NAME;
 import static com.example.khang.myapp.db.TaskContract.TaskEntry.COL_TASK_TIME;
 import static com.example.khang.myapp.db.TaskContract.TaskEntry.COL_TASK_TITLE;
 import static com.example.khang.myapp.db.TaskContract.TaskEntry.CON_TASK_FINISH;
+import static com.example.khang.myapp.db.TaskContract.TaskEntry.COL_TASK_USER_ID;
 import static com.example.khang.myapp.db.TaskContract.TaskEntry.TABLE;
+import static com.example.khang.myapp.db.TaskContract.TaskEntry.TABLE_USER;
 
 public class MainActivityTwo extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -64,6 +66,8 @@ public class MainActivityTwo extends AppCompatActivity
     private FragmentManager fragmentManager;
     private TextView name, email;
     private ImageView edit;
+
+    private long userID = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +109,9 @@ public class MainActivityTwo extends AppCompatActivity
                 OpenDialog();
             }
         });
+
+
+        OpenDialog();
     }
 
     private boolean OpenDialog() {
@@ -126,7 +133,7 @@ public class MainActivityTwo extends AppCompatActivity
                         ContentValues values = new ContentValues();
                         values.put(COL_TASK_NAME, name);
                         values.put(COL_TASK_EMAIL, email);
-                        db.insertWithOnConflict(TABLE,
+                        userID = db.insertWithOnConflict(TABLE_USER,
                                 null,
                                 values,
                                 SQLiteDatabase.CONFLICT_REPLACE);
@@ -178,7 +185,7 @@ public class MainActivityTwo extends AppCompatActivity
         return true;
     }
 
-   @Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add_task:
@@ -193,7 +200,12 @@ public class MainActivityTwo extends AppCompatActivity
 
     }
 
-    public boolean dialog() {
+    public void dialog() {
+        if (userID == -1) {
+            OpenDialog();
+            return;
+        }
+
         LayoutInflater li = LayoutInflater.from(getApplicationContext());
         View promptsView = li.inflate(R.layout.dialog_additem, null);
         final EditText taskEditText = promptsView.findViewById(R.id.et_title);
@@ -217,6 +229,7 @@ public class MainActivityTwo extends AppCompatActivity
                         values.put(COL_TASK_CONTENT, task1);
                         values.put(COL_TASK_TIME, Date);
                         values.put(CON_TASK_FINISH, "");
+                        values.put(COL_TASK_USER_ID, userID);
                         db.insertWithOnConflict(TABLE,
                                 null,
                                 values,
@@ -229,9 +242,6 @@ public class MainActivityTwo extends AppCompatActivity
                 .setNegativeButton("Cancel", null)
                 .create();
         dialog.show();
-        return true;
-
-
     }
 
     private void updateUI() {
@@ -282,10 +292,10 @@ public class MainActivityTwo extends AppCompatActivity
     }
 
     private int doneTask(String finish) {
-        String value="hanoi";
+        String value = "hanoi";
         SQLiteDatabase db = mHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-            values.put(CON_TASK_FINISH, value);
+        values.put(CON_TASK_FINISH, value);
         return db.update(TABLE, values, CON_TASK_FINISH + " = ?",
                 new String[]{finish});
     }
