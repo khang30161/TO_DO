@@ -32,7 +32,6 @@ import android.widget.TextView;
 
 import com.example.khang.myapp.Adapter.RecycleviewAdapter;
 import com.example.khang.myapp.Object.Manager;
-import com.example.khang.myapp.db.MainActivity;
 import com.example.khang.myapp.db.TaskContract;
 import com.example.khang.myapp.db.TaskDbOpen;
 
@@ -160,10 +159,11 @@ public class MainActivityTwo extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
+            Intent intent = new Intent(MainActivityTwo.this, Complete.class);
+            startActivity(intent);
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-            Intent intent=new Intent(MainActivityTwo.this, Complete.class);
-            startActivity(intent);
+
 
         }
 
@@ -178,7 +178,7 @@ public class MainActivityTwo extends AppCompatActivity
         return true;
     }
 
-    @Override
+   @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add_task:
@@ -223,6 +223,7 @@ public class MainActivityTwo extends AppCompatActivity
                                 SQLiteDatabase.CONFLICT_REPLACE);
 
                         db.close();
+                        updateUI();
                     }
                 })
                 .setNegativeButton("Cancel", null)
@@ -268,8 +269,9 @@ public class MainActivityTwo extends AppCompatActivity
             }
 
             @Override
-            public void onDelete(Manager view, int position) {
-
+            public void onDelete(Manager manager, int position) {
+                doneTask(manager.getFinish());
+                updateUI();
             }
         });
 
@@ -277,6 +279,15 @@ public class MainActivityTwo extends AppCompatActivity
         recycleviewAdapter.notifyDataSetChanged();
         cursor.close();
         db.close();
+    }
+
+    private int doneTask(String finish) {
+        String value="hanoi";
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+            values.put(CON_TASK_FINISH, value);
+        return db.update(TABLE, values, CON_TASK_FINISH + " = ?",
+                new String[]{finish});
     }
 
     private void dialogChangeData(final String title, String content) {
@@ -310,20 +321,21 @@ public class MainActivityTwo extends AppCompatActivity
         return db.update(TABLE, values, COL_TASK_TITLE + " = ?",
                 new String[]{title});
     }
-    public int doneTask(View view) {
-        View parent = (View) view.getParent();
-        TextView taskTextView = (TextView) parent.findViewById(R.id.tv_content);
-        taskTextView.setText("finish");
-        SQLiteDatabase db = mHelper.getWritableDatabase();
-        String done = "finish";
-        ContentValues values = new ContentValues();
-        values.put(TaskContract.TaskEntry.CON_TASK_FINISH, done);
-        return db.update(TABLE, values, CON_TASK_FINISH + " = ?",
-                new String[]{done});
 
-//        Log.e(db.Select(all));
+//    public int doneTask(View view) {
+//        View parent = (View) view.getParent();
+//        TextView taskTextView = (TextView) parent.findViewById(R.id.finsh);
+//        String task=taskTextView.getText().toString();
+//        task="notnull";
+//        SQLiteDatabase db = mHelper.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put(TaskContract.TaskEntry.CON_TASK_FINISH, task);
+//         return db.update(TABLE, values, CON_TASK_FINISH + " = ?",
+//                new String[]{task});
 //
-//        return resultReturn;
-
-    }
+////        Log.e(db.Select(all));
+////
+////        return resultReturn;
+//
+//    }
 }

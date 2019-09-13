@@ -5,20 +5,41 @@
     android:layout_height="match_parent"
     tools:context=".Complete">
 
-    <TextView
-        android:textSize="20dp"
+    <RelativeLayout
         android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/colorAccent">
+
+        <ImageView
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/logo_no_fill" />
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:text="TO-DO COMPLETED"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <TextView
+        android:textColor="@color/colorAccent"
+        android:textSize="20dp"
+        android:id="@+id/line2"
+        android:layout_below="@id/line1"
+        android:text="Completed:"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="25dp"
-        android:text="Công việc đã hoàn thành" />
+        android:layout_height="wrap_content" />
 
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="25dp"
-        android:layout_below="@+id/line1"
+        android:id="@+id/rv_complete"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line2"
+        android:layout_marginTop="25dp">
 
     </android.support.v7.widget.RecyclerView>
 
